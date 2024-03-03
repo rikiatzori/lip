@@ -50,6 +50,21 @@ let%test "abs" =
   "main() { int x = 21; if (x < 0) x = x * -1; return x; }"
   |> parse |> trace |> last = CONST 21
 
+let%test "while-const" =
+  "
+  main () {
+    int x = 0;
+
+    while(0) {
+      x = x + 42;
+    }
+
+    x = 3;
+
+    return x;
+  }"
+  |> parse |> trace |> last = CONST 3
+
 let%test "while-to-5" =
   "main() { int x = 0; while (x < 5) x = x + 1; return x; }" |> parse |> trace
   |> last = CONST 5
@@ -352,6 +367,21 @@ let%test "procedure" =
     while (i < deg)
       i = i + 1;
   }" |> parse |> trace |> last = CONST 3
+
+let%test "drive" =
+  let r1 = Robot.init () in
+  Robot.cur_robot := r1;
+  let prog =
+    "
+  main () {
+
+  drive(20, 100);
+
+  return loc_x() == 0 && loc_y() == 0;
+  }"
+  in
+  let result = prog |> parse |> trace |> last in
+  r1.d_heading == 20 && r1.d_speed == 100 && result = CONST 1
 
 let%test "parse-rabbit" =
   "
