@@ -41,19 +41,40 @@ Next, we'll configure your local OS for containerized development.
 1.  Install [Docker Desktop](https://docs.docker.com/get-started/get-docker/).
 1.  Lastly, install [Visual Studio Code](https://code.visualstudio.com/Download).
 
-#### Start WSL and check for git
+#### [Windows users only] Configure WSL and Docker
 
-Once you've installed all three applications, start a WSL terminal and go through the initialization procedure, which will ask you to enter a username and a password for your account.
+_Skip this section if you don't use Windows._
 
-The default Linux distribution that is shipped with WSL already comes with `git` pre-installed, but it doesn't hurt to check:
++ Hit the keys `Win + S` and search for "WSL" or "Ubuntu". Clicking the first result should open a pitch-black window with white text on it.
+  
+  Read it carefully, and make sure you understand it as you go through the initialization procedure.
+  It will eventually ask you to enter a username and a password for your account. Note these down.
+
++ On Docker Desktop, make sure WSL 2 integration is enabled. To do so, perform the actions shown in this gif:
+
+  ![non-exact-turn](https://github.com/user-attachments/assets/16715217-1087-44b1-8d22-b89543695520)
+
+
+#### Install git
+
+From now on we will be working solely on the command line of a Linux shell. If you're on Windows, that means you're going to be typing commands within a WSL shell running Ubuntu. Otherwise, as a Linux or macOS user, you're going to be using your OS's native shell.
+
+Many commercial Linux distributions, including the one shipped with WSL, already come with `git` preinstalled, but it doesn't hurt to check:
 
 ```
 git --version
 ```
 
+If that command fails, then you must [install `git`](https://git-scm.com/downloads/linux) on your system. On Debian and Ubuntu, it boils down to the two commands:
+
+```
+sudo apt update
+sudo apt install git
+```
+
 #### Install the GitHub CLI
 
-The GitHub CLI is useful tool to manage your online repositories from the comfort of the command line. We just need it to perform `git` commands as an authenticated user.
+Next, we want the GitHub CLI. The GitHub CLI is a useful tool to manage your online repositories from the comfort of the command line. We just need it to perform `git` commands as an authenticated user.
 
 To install the GitHub CLI, follow the [installation instructions for Linux](https://github.com/cli/cli/blob/trunk/docs/install_linux.md). Then check it's installed with:
 
@@ -61,7 +82,7 @@ To install the GitHub CLI, follow the [installation instructions for Linux](http
 gh --version
 ```
 
-#### Login to GitHub from WSL
+#### Login to GitHub from the shell
 
 First, authenticate to your GitHub account from the GitHub CLI. Run:
 
@@ -81,12 +102,12 @@ git config --global user.email <YOUR-EMAIL@EXAMPLE.COM>
 
 From now on `git` will sign your commits with the given credentials and will act on the behalf of your GitHub account whenever you push to a remote repository, such as your fork.
 
-#### Clone your Lip lab fork
+#### Clone your LiP lab fork
 
-Run the following command from your home folder, replacing `<YOUR-USERNAME>` with your GitHub username:
+Run the following command from your home folder, replacing `YOUR-USERNAME` with your GitHub username:
 
 ```
-clone https://github.com/YOUR-USERNAME/lip
+git clone https://github.com/YOUR-USERNAME/lip
 ```
 
 This downloads a local copy of your fork in a new directory called `lip`.
@@ -227,7 +248,7 @@ You made it to the end of Getting Started tutorial! You and your system should n
 
 Here's a final diagram to help you understand the lab workflow.
 
-![image](https://github.com/user-attachments/assets/b523f3e7-e27a-436d-af06-ecb1f5649bb4)
+![image](https://github.com/user-attachments/assets/8ae392cf-997c-483f-bf49-60d169726e9f)
 
 Now proceed to refresh your OCaml knowledge with these warm-up exercises:
 
