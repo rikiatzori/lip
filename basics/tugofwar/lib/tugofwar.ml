@@ -1,8 +1,67 @@
 (* tokens *)
 type token = A | B | X
 
-(* convert a string to a list of char *)
+(* convert a string to a list of char 
+val toklist_of_string : string -> token list*)
+let  rec stringTostringList s i=
+if (i< String.length s) then
+   s.[i]::(stringTostringList s (i+1))
+else
+  []
+;;
 
+
+let toklist_of_string s =
+  let rec funx l=
+  match l with
+  |[] -> []
+  |'A'::rest ->  A::(funx rest)
+  |'B'::rest  ->  B::(funx rest)
+  |'='::rest  ->  X::(funx rest)
+
+  in funx (stringTostringList s 0)
+
+;;
+
+
+(* val valid : token list -> bool *)
+(* valid l is true when l is a list of tokens in the language A* X* B* *)
+    
+let rec valid l =
+  match l with
+  | [] -> true
+  |A::y::rest ->  if y= X|| y= A  then valid (y::rest) else false
+  |X::y::rest ->  if y= X|| y= B  then valid (y::rest) else false
+  |B::rest -> if (rest = [A] || rest = [X]) then false else valid rest 
+  
+;;
+
+let win l =
+  let lenA=List.length( List.filter(fun s ->  s = A) l)   in
+  let lebB=List.length( List.filter(fun s ->  s = B) l)   in
+
+  match lenA,lebB with
+  |x,y -> if x>y then A else if x=y then X else B 
+
+;;
+
+
+let  string_of_winner winner =
+match winner with
+|A -> "the winner is A"
+|B -> "the winner is B"
+|_-> "no winner"
+
+ 
+
+  
+
+
+
+
+
+
+(*
 let explode s =
   let rec exp i l =
     if i < 0 then l else exp (i - 1) (s.[i] :: l) in
@@ -49,3 +108,4 @@ let string_of_winner w = match w with
     A -> "the winner is A"
   | B -> "the winner is B"
   | _ -> "no winner"
+*)
